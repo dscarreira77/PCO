@@ -103,13 +103,22 @@ public class Bottle implements Iterable<Filling>{
 	 * @param n
 	 */
 	public void pourOut(int n) {
+
 	}
 
 	/**
 	 * 
 	 */
 	public void pourOut() {
-
+		int i = content.length -1;
+		while (i >= 0){
+			if(content[i] != null){
+				content[i] = null;
+				i = -1;
+			}else{
+				i--;
+			}
+		}
 	}
 
 
@@ -130,8 +139,13 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public boolean receive(Filling s) {
+		for(int i = 0 ; i< content.length; i++){
+			if(content[i] == null){
+				content[i] = s;
+				return true;
+			}
+		}
 		return false;
-
 	}
 
 	/**
@@ -168,7 +182,7 @@ public class Bottle implements Iterable<Filling>{
 	public String toString2() {
 		StringBuilder result = new StringBuilder();
 	
-		for (int i = content.length - 1; i >= 0; i--) {
+		for (int i = 0; i < content.length ; i++) {
 			if (content[i] != null) {
 				result.append(content[i].toString()).append(" ");
 			} else {
@@ -176,7 +190,7 @@ public class Bottle implements Iterable<Filling>{
 			}
 		}
 	
-		return result.toString().trim(); // Remove espaços em branco extras no início e no final.
+		return result.toString();
 	}
 	
 	

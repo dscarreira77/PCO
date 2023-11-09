@@ -6,13 +6,13 @@ package types;
  * @author PCO Team
  */
 public enum Squares implements Filling {
-	YELLOW("🟨"),
-	BROWN("🟫"),
-	RED("🟥"),
-	BLACK("⬛"),
-	ORANGE("🟧"),
-	GREEN("🟩"),
-	PURPLE("🟪");
+	YELLOW("1"),
+	BROWN("2"),
+	RED("3"),
+	BLACK("4"),
+	ORANGE("5"),
+	GREEN("6"),
+	PURPLE("7");
 
 	
 	
