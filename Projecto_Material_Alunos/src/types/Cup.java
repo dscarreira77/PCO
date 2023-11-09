@@ -1,5 +1,6 @@
 package types;
 
+
 //Notem que podem faltar métodos na classe que permitam lidar melhor com os objectos.
 public class Cup extends Bottle{
 	//TODO

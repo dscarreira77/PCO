@@ -2,6 +2,7 @@ package types;
 
 import java.util.Iterator;
 
+
 //Notem que podem faltar métodos na classe que permitam lidar melhor com os objectos.
 public class Bottle implements Iterable<Filling>{
 
@@ -15,14 +16,11 @@ public class Bottle implements Iterable<Filling>{
 	private Filling[] content;
 
 	public static void main(String[] args) {
+		Filling[] initialContent = { Squares.YELLOW, Squares.BROWN, null, null, null };
+        Bottle bottle = new Bottle(initialContent);
 
-		Emojis[] vec = new Emojis[7];
-
-		for (int i = 0; i < vec.length; i++) {
-			vec[i] = Emojis.ANGEL;
-		}
-
-		Bottle bottleTest = new Bottle(vec);;
+        // Testando o método toString2()
+        System.out.println(bottle.toString2());
     }
 	/**
 	 * 
@@ -159,18 +157,27 @@ public class Bottle implements Iterable<Filling>{
 	 */
 	public Filling[] getContent() {
 
-		return null;
+		return content;
 	}
 
 
 	/**
 	 * 
 	 */
-	public String toString() {
-
-		return null;
-
+	public String toString2() {
+		StringBuilder result = new StringBuilder();
+	
+		for (int i = content.length - 1; i >= 0; i--) {
+			if (content[i] != null) {
+				result.append(content[i].toString()).append(" ");
+			} else {
+				result.append(empty).append(" ");
+			}
+		}
+	
+		return result.toString().trim();
 	}
+	
 
 	/**
 	 * 
