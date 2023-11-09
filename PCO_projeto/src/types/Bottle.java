@@ -19,6 +19,8 @@ public class Bottle implements Iterable<Filling>{
 	
 		Filling[] initialContent = { Squares.YELLOW, Squares.BROWN, null, null, null };
 		Bottle bottle = new Bottle(initialContent);
+		bottle.pourOut();
+		bottle.pourOut();
 	
 		// Testando o método toString2()
 		System.out.println(bottle.toString2());
@@ -103,6 +105,16 @@ public class Bottle implements Iterable<Filling>{
 	 * @param n
 	 */
 	public void pourOut(int n) {
+		int i = content.length -1;
+		int count = 0;
+		while (i >= 0 && count < n){
+			if(content[i] != null){
+				content[i] = null;
+				count++;
+			}else{
+				i--;
+			}
+		}
 
 	}
 
@@ -129,6 +141,17 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public boolean receive(Filling s, int howMany) {
+		int count = 0;
+		for(int i = 0 ; i< content.length; i++){
+			if(content[i] == null){
+				content[i] = s;
+				if(count == howMany -1 ){
+					return true;
+				}else{
+					count++;
+				}
+			}
+		}
 		return false;
 	}
 
@@ -161,6 +184,12 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public boolean isSingleFilling() {
+		Filling primeiro = content[0];
+		for(int i = 1; i < content.length-1;i++){
+			if(primeiro != content[i] || content[i] != null){
+				return false;
+			}
+		}
 		return true;
 	}
 
