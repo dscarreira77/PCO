@@ -18,7 +18,7 @@ class BootleTestConstructors {
 		int expected = Bottle.DEFAULT_SIZE;
 
 		assertEquals(expected, actual);
-		
+
 	}
 
 	@Test

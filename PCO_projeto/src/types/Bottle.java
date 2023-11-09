@@ -2,7 +2,6 @@ package types;
 
 import java.util.Iterator;
 
-
 //Notem que podem faltar métodos na classe que permitam lidar melhor com os objectos.
 public class Bottle implements Iterable<Filling>{
 
@@ -12,28 +11,18 @@ public class Bottle implements Iterable<Filling>{
 	public static String empty = "⬜";
 
 	public static String EOL = System.lineSeparator();
-	
-	private Filling[] content;
 
-	public static void main(String[] args) {
-		Filling[] initialContent = { Squares.YELLOW, Squares.BROWN, null, null, null };
-        Bottle bottle = new Bottle(initialContent);
-
-        // Testando o método toString2()
-        System.out.println(bottle.toString2());
-    }
 	/**
 	 * 
 	 */
 	public Bottle() {
-		content = new Filling[DEFAULT_SIZE];
 	}
+
 	/**
 	 * 
 	 * @param size
 	 */
 	public Bottle(int size) {
-		content = new Filling[size];
 	}
 
 
@@ -41,20 +30,13 @@ public class Bottle implements Iterable<Filling>{
 	 * @param content
 	 */
 	public Bottle(Filling[] content ) {
-		this.content= content;
-		System.out.println(this.content);
 	}
 
 	/**
 	 * @return
 	 */
 	public boolean isFull() {
-		for(int i=0; i<content.length; i++){
-			if(content[i] == null){
-				return false;
-			}
-		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -62,12 +44,7 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public boolean isEmpty() {
-		for(int i = content.length;i>= 0; i--){
-			if(content[i] != null){
-				return false;
-			}		
-		}
-		return true;
+		return false;
 	}
 
 	/**
@@ -75,11 +52,6 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public Filling top() {
-		for(int i = content.length; i>=0;i--){
-			if(content[i] != null){
-				return content[i];
-			}
-		}
 		return null;
 	}
 
@@ -88,13 +60,7 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public int spaceAvailable() {
-		int count = 0;
-		for(int i = 0; i< content.length;i++){
-			if(content[i] == null){
-				count++;
-			}
-		}
-		return count;
+		return 0;	
 	}
 
 	/**
@@ -102,6 +68,7 @@ public class Bottle implements Iterable<Filling>{
 	 * @param n
 	 */
 	public void pourOut(int n) {
+
 	}
 
 	/**
@@ -138,7 +105,7 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public int size() {
-		return content.length;
+		return 0;
 	}
 
 	/**
@@ -157,27 +124,18 @@ public class Bottle implements Iterable<Filling>{
 	 */
 	public Filling[] getContent() {
 
-		return content;
+		return null;
 	}
 
 
 	/**
 	 * 
 	 */
-	public String toString2() {
-		StringBuilder result = new StringBuilder();
-	
-		for (int i = content.length - 1; i >= 0; i--) {
-			if (content[i] != null) {
-				result.append(content[i].toString()).append(" ");
-			} else {
-				result.append(empty).append(" ");
-			}
-		}
-	
-		return result.toString().trim();
+	public String toString() {
+
+		return null;
+
 	}
-	
 
 	/**
 	 * 
