@@ -16,8 +16,6 @@ public class Bottle implements Iterable<Filling>{
 	private Filling[] content;
 
 	public static void main(String[] args) {
-		// Defina a codificação UTF-8 para garantir a exibição correta dos caracteres Unicode
-		System.setProperty("file.encoding", "UTF-8");
 	
 		Filling[] initialContent = { Squares.YELLOW, Squares.BROWN, null, null, null };
 		Bottle bottle = new Bottle(initialContent);
@@ -174,12 +172,13 @@ public class Bottle implements Iterable<Filling>{
 			if (content[i] != null) {
 				result.append(content[i].toString()).append(" ");
 			} else {
-				result.append(empty).append(" null ");
+				result.append(empty).append(" ");
 			}
 		}
 	
 		return result.toString().trim(); // Remove espaços em branco extras no início e no final.
 	}
+	
 	
 	
 
