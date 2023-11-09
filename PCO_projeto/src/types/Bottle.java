@@ -2,6 +2,7 @@ package types;
 
 import java.util.Iterator;
 
+
 //Notem que podem faltar métodos na classe que permitam lidar melhor com os objectos.
 public class Bottle implements Iterable<Filling>{
 
@@ -11,18 +12,32 @@ public class Bottle implements Iterable<Filling>{
 	public static String empty = "⬜";
 
 	public static String EOL = System.lineSeparator();
+	
+	private Filling[] content;
 
+	public static void main(String[] args) {
+		// Defina a codificação UTF-8 para garantir a exibição correta dos caracteres Unicode
+		System.setProperty("file.encoding", "UTF-8");
+	
+		Filling[] initialContent = { Squares.YELLOW, Squares.BROWN, null, null, null };
+		Bottle bottle = new Bottle(initialContent);
+	
+		// Testando o método toString2()
+		System.out.println(bottle.toString2());
+	}
+	
 	/**
 	 * 
 	 */
 	public Bottle() {
+		content = new Filling[DEFAULT_SIZE];
 	}
-
 	/**
 	 * 
 	 * @param size
 	 */
 	public Bottle(int size) {
+		content = new Filling[size];
 	}
 
 
@@ -30,13 +45,19 @@ public class Bottle implements Iterable<Filling>{
 	 * @param content
 	 */
 	public Bottle(Filling[] content ) {
+		this.content= content;
 	}
 
 	/**
 	 * @return
 	 */
 	public boolean isFull() {
-		return false;
+		for(int i=0; i<content.length; i++){
+			if(content[i] == null){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -44,7 +65,12 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public boolean isEmpty() {
-		return false;
+		for(int i = content.length;i>= 0; i--){
+			if(content[i] != null){
+				return false;
+			}		
+		}
+		return true;
 	}
 
 	/**
@@ -52,6 +78,11 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public Filling top() {
+		for(int i = content.length; i>=0;i--){
+			if(content[i] != null){
+				return content[i];
+			}
+		}
 		return null;
 	}
 
@@ -60,7 +91,13 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public int spaceAvailable() {
-		return 0;	
+		int count = 0;
+		for(int i = 0; i< content.length;i++){
+			if(content[i] == null){
+				count++;
+			}
+		}
+		return count;
 	}
 
 	/**
@@ -68,7 +105,6 @@ public class Bottle implements Iterable<Filling>{
 	 * @param n
 	 */
 	public void pourOut(int n) {
-
 	}
 
 	/**
@@ -105,7 +141,7 @@ public class Bottle implements Iterable<Filling>{
 	 * @return
 	 */
 	public int size() {
-		return 0;
+		return content.length;
 	}
 
 	/**
@@ -124,18 +160,28 @@ public class Bottle implements Iterable<Filling>{
 	 */
 	public Filling[] getContent() {
 
-		return null;
+		return content;
 	}
 
 
 	/**
 	 * 
 	 */
-	public String toString() {
-
-		return null;
-
+	public String toString2() {
+		StringBuilder result = new StringBuilder();
+	
+		for (int i = content.length - 1; i >= 0; i--) {
+			if (content[i] != null) {
+				result.append(content[i].toString()).append(" ");
+			} else {
+				result.append(empty).append(" null ");
+			}
+		}
+	
+		return result.toString().trim(); // Remove espaços em branco extras no início e no final.
 	}
+	
+	
 
 	/**
 	 * 
