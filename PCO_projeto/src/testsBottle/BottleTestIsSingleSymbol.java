@@ -61,7 +61,6 @@ class BottleTestIsSingleSymbol {
 		vec[4] = Emojis.LOVE;
 		
 		bottleTest = new Bottle(vec);
-
 		boolean actual = bottleTest.isSingleFilling();
 		boolean expected = false;
 

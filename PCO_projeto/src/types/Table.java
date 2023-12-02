@@ -18,9 +18,9 @@ public class Table {
         this.bottles = new ArrayList<>();
         Random random = new Random(seed);
 
-        for (int i = 0; i < symbols.length; i++) {
-            Filling[] bottleContent = new Filling[bottleSize];
-            for (int j = 0; j < bottleSize; j++) {
+        for (int i = 0; i < bottleSize; i++) {
+            Filling[] bottleContent = new Filling[DEFAULT_BOTTLE_SIZE];
+            for (int j = 0; j < numberOfUsedSymbols; j++) {
                 bottleContent[j] = symbols[random.nextInt(minUsedSymbols)];
             }
             Bottle bottle = new Bottle(bottleContent);
@@ -106,7 +106,8 @@ public class Table {
     public String toString() {
         StringBuilder tableContent = new StringBuilder();
         for (int i = 0; i < bottles.size(); i++) {
-            tableContent.append("Bottle ").append(i).append(": ").append(bottles.get(i).toString()).append(EOL);
+            tableContent.append(EOL);
+            tableContent.append(bottles.get(i).toString());
         }
         return tableContent.toString();
     }
