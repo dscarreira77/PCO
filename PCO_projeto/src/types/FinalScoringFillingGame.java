@@ -1,33 +1,40 @@
 package types;
+import types.Table;
 
 //Notem que podem faltar métodos na classe que permitam lidar melhor com os objectos.
 public class FinalScoringFillingGame extends AbstractFillingGame {
 
+	public FinalScoringFillingGame(Table table) {
+        this.table = table;
+    }
+
     public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize) {
         super(symbols, numberOfUsedSymbols, seed, bootleSize);
-        this.score = 0; // Set the score to 0 by default
+        this.score = 0; 
     }
 
     public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize, int score) {
         super(symbols, numberOfUsedSymbols, seed, bootleSize);
-        this.score = score; // Set the score to the given value
+        this.score = score; 
     }
 
     @Override
     public void updateScore() {
         // Your implementation based on the game rules
-        if (isRoundFinished()) {
-            int moves = jogadas(); // Assuming the number of moves is captured by jogadas() method
-            if (moves <= 10) {
+        if (areAllFilled()) {
+            int moves = table.nrMoves; //pesquisar chamada de vairavel definida em table
+            if (moves < 10) {
                 this.score += 1000;
-            } else if (moves <= 15) {
+            } else if (moves >= 10 && moves <= 15) {
                 this.score += 500;
-            } else if (moves <= 25) {
+            } else if (moves > 15 && moves <= 25) {
                 this.score += 200;
             } else {
-                this.score -= 100;
+                this.score = 0;
             }
-        }
+        } else {
+			this.score -= 100;
+		}
     }
 
     @Override
