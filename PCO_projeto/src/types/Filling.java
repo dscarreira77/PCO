@@ -3,6 +3,8 @@ package types;
 public interface Filling {
 
 	
-	Filling[] fillings();
+	Object EMPTY = null;
+
+    Filling[] fillings();
 
 }

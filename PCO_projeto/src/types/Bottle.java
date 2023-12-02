@@ -157,15 +157,15 @@ public class Bottle implements Iterable<Filling>{
 	 * @param s
 	 * @return
 	 */
-	public boolean receive(Filling s) { 
-		for(int i = content.length-1 ; i > 0; i--){
-			if((content[i] == null && s == content[i-1]) || (content[0] == null)){
-				content[i] = s;
-				return true;
-			}
-		}
-		return false;
-	}
+	public boolean receive(Filling s) {
+        for (int i = 0; i < content.length; i++) {
+            if (content[i] == null) {
+                content[i] = s;
+                return true;
+            }
+        }
+        return false;  // Return false if the bottle is already full
+    }
 
 	/**
 	 * 
