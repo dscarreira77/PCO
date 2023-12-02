@@ -10,6 +10,7 @@ public class Table {
     public static final String empty = "⬜";
     public static final int DIFFICULTY = 3;
     public static final int DEFAULT_BOTTLE_SIZE = 5;
+    public int nrMoves = 0;
 
     private ArrayList<Bottle> bottles;
     private Filling[] symbols;
@@ -171,6 +172,7 @@ public class Table {
                 Filling targetFilling = targetBottle.top();
                 if(!pouredFilling.equals(targetFilling)){
                     return;
+                    nrMoves++;
                 }
             }
             sourceBottle.pourOut(1); // Pour out one filling from the source bottle
