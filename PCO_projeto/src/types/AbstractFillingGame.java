@@ -11,7 +11,7 @@ public abstract class AbstractFillingGame implements FillingGame {
     protected int score;
 
 	/**
-	 * 
+	 * uncertain ???????
 	 * @param symbols
 	 * @param numberOfUsedSymbols
 	 * @param seed
@@ -23,12 +23,21 @@ public abstract class AbstractFillingGame implements FillingGame {
 		this.seed = seed;
 		this.bootleSize = bootleSize;
 		this.score = 0;
+		Table table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
+		return table;
 	}
 
-    protected abstract Bottle getNewBottle();
+    protected abstract Bottle getNewBottle(){
+		return addBootle(Bottle);
+	};
 
-	public abstract void updateScore();
+	public abstract void updateScore(){
+		return updatedScore;
+	};
+	
 
-	public abstract int score();
+	public abstract int score(){
+		return score;
+	};
 }
 
