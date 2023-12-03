@@ -11,7 +11,6 @@ public class Table {
     public static final int DIFFICULTY = 3;
     public static final int DEFAULT_BOTTLE_SIZE = 5;
 
-    private ArrayList<Bottle> bottles;
     private Filling[] symbols;
     private int numberOfUsedSymbols;
     private Random random;
@@ -26,10 +25,9 @@ public class Table {
         this.random = new Random(seed);
         this.bottleSize = bottleSize;
         this.table = new ArrayList<>();
-        this.numberOfBottles = Math.max(this.numberOfUsedSymbols, 1); // Pelo menos uma garrafa
+        this.numberOfBottles = Math.max(this.numberOfUsedSymbols, 1);
         this.fillingsCounter = new int[this.numberOfUsedSymbols];
 
-        // Adiciona garrafas com conteúdo aleatório
         for (int i = 0; i < numberOfBottles; i++) {
             Filling[] toUse = new Filling[this.bottleSize];
 
@@ -53,17 +51,15 @@ public class Table {
             this.table.add(b);
         }
 
-        // Adiciona garrafas vazias (Dificuldade definida por defeito)
         for (int i = 0; i < DIFFICULTY; i++) {
             this.table.add(new Bottle(bottleSize));
         }
     }
 
     public void regenerateTable() {
-        this.table.clear(); // Limpa o conteúdo atual da tabela
-        this.fillingsCounter = new int[this.numberOfUsedSymbols]; // Reinicia o contador de preenchimentos
+        this.table.clear();
+        this.fillingsCounter = new int[this.numberOfUsedSymbols];
     
-        // Adiciona garrafas com conteúdo aleatório
         for (int i = 0; i < numberOfBottles; i++) {
             Filling[] toUse = new Filling[bottleSize];
     
@@ -87,7 +83,6 @@ public class Table {
             this.table.add(b);
         }
     
-        // Adiciona garrafas vazias (Dificuldade definida por defeito)
         for (int i = 0; i < DIFFICULTY; i++) {
             this.table.add(new Bottle(bottleSize));
         }
@@ -96,7 +91,6 @@ public class Table {
 
     public boolean singleFilling(int x) {
         if (x < 0 || x >= table.size()) {
-            // Índice fora dos limites da tabela
             return false;
         }
     
@@ -104,7 +98,6 @@ public class Table {
         Filling[] content = bottle.getContent();
     
         if (content.length == 0) {
-            // Garrafa vazia
             return false;
         }
     
@@ -112,19 +105,16 @@ public class Table {
     
         for (int i = 1; i < content.length; i++) {
             if (content[i] != null && !content[i].equals(firstFilling)) {
-                // Encontrou um conteúdo diferente
                 return false;
             }
         }
     
-        // Todos os conteúdos são iguais
         return true;
     }
     
 
     public boolean isEmpty(int x) {
         if (x < 0 || x >= table.size()) {
-            // Invalid index, cannot check the status
             return false;
         }
     
@@ -135,7 +125,6 @@ public class Table {
 
     public boolean isFull(int x) {
         if (x < 0 || x >= table.size()) {
-            // Invalid index, cannot check the status
             return false;
         }
     
@@ -156,24 +145,22 @@ public class Table {
 
 	public void pourFromTo(int i, int j) {
         if (i < 0 || i >= table.size() || j < 0 || j >= table.size() || i == j) {
-            // Invalid indices or same indices, cannot perform the operation
             return;
         }
     
         Bottle sourceBottle = table.get(i);
         Bottle targetBottle = table.get(j);
     
-        // Check if the source bottle is not empty, the target bottle is not full,
-        // and the top fillings of both bottles are the same
+        
         if (!sourceBottle.isEmpty() && !targetBottle.isFull()) {
-            Filling pouredFilling = sourceBottle.top(); // Get the top filling without removing it
+            Filling pouredFilling = sourceBottle.top();
             if(!targetBottle.isEmpty()){
                 Filling targetFilling = targetBottle.top();
                 if(!pouredFilling.equals(targetFilling)){
                     return;
                 }
             }
-            sourceBottle.pourOut(1); // Pour out one filling from the source bottle
+            sourceBottle.pourOut(1);
             targetBottle.receive(pouredFilling);
         }
     }
@@ -214,19 +201,17 @@ public class Table {
     public String toString() {
         StringBuilder tableContent = new StringBuilder();
     
-        // Iterating over each position in the bottles
         for (int row = bottleSize - 1; row >= 0; row--) {
             for (Bottle bottle : table) {
                 Object content;
                 if (row < bottle.size()) {
                     content = bottle.getContent()[row];
                 } else {
-                    content = Filling.EMPTY;  // If the bottle has no content at this position, use an empty filling
+                    content = Filling.EMPTY;
                 }
-                // Adjust the representation as needed for emojis
                 tableContent.append(content != null ? content.toString() : empty).append("    ");
             }
-            tableContent.append(EOL);  // Adding EOL between the bottles
+            tableContent.append(EOL);
         }
     
         return tableContent.toString();

@@ -77,7 +77,6 @@ public class Bottle implements Iterable<Filling>{
 			}
 		}
 	
-		// This should never be reached, as the isEmpty() check should throw an exception
 		return null;
 	}
 	
@@ -164,7 +163,7 @@ public class Bottle implements Iterable<Filling>{
                 return true;
             }
         }
-        return false;  // Return false if the bottle is already full
+        return false;
     }
 
 	/**
