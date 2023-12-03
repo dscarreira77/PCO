@@ -6,7 +6,6 @@ public class BettingFillingGame extends AbstractFillingGame{
 	private int bet;
 	private int maxPlays;
 
-
 	/**
 	 * 
 	 * @param symbols
@@ -22,7 +21,6 @@ public class BettingFillingGame extends AbstractFillingGame{
 		this.score = score;
 		this.bet = bet;
 		this.maxPlays = maxPlays;
-
 		this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
 	}
 
@@ -68,17 +66,19 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 */
 	@Override
 	public boolean isRoundFinished() {
-		return table.areAllFilled() || table.nrMoves >= maxPlays;
+		if (table.areAllFilled() || table.nrMoves >= maxPlays){
+			return true;
+		}
+		return false;
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Game Status:");
-		sb.append("\nCurrent Score: ").append(score);
-		sb.append("\nMaximum Plays Allowed: ").append(maxPlays);
-		sb.append("\nNumber of Moves: ").append(table.nrMoves);
-		sb.append("\nRounds Finished: ").append(isRoundFinished() ? "Yes" : "No");
+		sb.append("Score: ").append(score);
+		sb.append(EOL);
+		sb.append(this.table.toString());
+		sb.append("Status: ").append(table.nrMoves).append(" moves have been used until now. You still have ").append(maxPlays-table.nrMoves).append(" moves left.").append(EOL);
 		
 		return sb.toString();
 	}
@@ -96,11 +96,17 @@ public class BettingFillingGame extends AbstractFillingGame{
 
 	@Override
 	public void play(int x, int y) {
-		if(table.singleFilling(x) && !table.isEmpty(x)){
-			if(!table.isFull(y) || table.top(x).equals(table.top(y))){
+		
+		for(int i = 0; i < table.getSizeBottles();i++){
+			Filling topFillingx = table.top(x);
+			Filling topFillingy = table.top(y);
+			if((topFillingx == topFillingy && !table.isFull(y)) || table.isEmpty(y)){
 				table.pourFromTo(x, y);
+			}else{
+				i = table.getSizeBottles();
 			}
 		}
+		table.nrMoves++;
 	}
 
 

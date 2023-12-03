@@ -1,7 +1,10 @@
 package types;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+
+import javax.swing.plaf.basic.BasicOptionPaneUI.ButtonActionListener;
 
 public class Table {
 
@@ -23,10 +26,11 @@ public class Table {
         this.symbols = symbols;
         this.numberOfUsedSymbols = Math.min(numberOfUsedSymbols, symbols.length);
         this.random = new Random(seed);
-        this.bottleSize = bottleSize;
+        this.bottleSize = bottleSize;   
         this.table = new ArrayList<>();
         this.numberOfBottles = Math.max(this.numberOfUsedSymbols, 1);
         this.fillingsCounter = new int[this.numberOfUsedSymbols];
+        this.nrMoves = 0;
 
         for (int i = 0; i < numberOfBottles; i++) {
             Filling[] toUse = new Filling[this.bottleSize];
@@ -147,21 +151,19 @@ public class Table {
         if (i < 0 || i >= table.size() || j < 0 || j >= table.size() || i == j) {
             return;
         }
-    
+        
         Bottle sourceBottle = table.get(i);
         Bottle targetBottle = table.get(j);
-    
-        
+
         if (!sourceBottle.isEmpty() && !targetBottle.isFull()) {
             Filling pouredFilling = sourceBottle.top();
             if(!targetBottle.isEmpty()){
                 Filling targetFilling = targetBottle.top();
                 if(!pouredFilling.equals(targetFilling)){
+                    nrMoves++;
                     return;
                 }
             }
-            
-            this.nrMoves++;
             sourceBottle.pourOut(1);
             targetBottle.receive(pouredFilling);
         }
@@ -195,7 +197,7 @@ public class Table {
         if (!bottle.isEmpty()) {
             return bottle.top();
         } else {
-            throw new ArrayIndexOutOfBoundsException("Expected top() to throw, but it didn't");
+            return null;
         }
     }
 
@@ -218,11 +220,4 @@ public class Table {
     
         return tableContent.toString();
     }
-    
-
-
-
-
-
-
 }
