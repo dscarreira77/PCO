@@ -55,8 +55,8 @@ public class BettingFillingGame extends AbstractFillingGame{
 	public void updateScore() {
 		if (isRoundFinished() && table.nrMoves < maxPlays) {
 				this.score += 2 * bet;
-			}else{
-				this.score = bet;
+			}if(isRoundFinished() && table.nrMoves >= maxPlays){
+				this.score = 0;
 			}
 		}
 
