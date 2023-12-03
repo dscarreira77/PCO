@@ -1,43 +1,39 @@
 package types;
 import types.Table;
+import java.util.Random;
 
-public abstract class AbstractFillingGame implements FillingGame {
+public class FinalScoringFillingGame extends AbstractFillingGame {
+    private int initialScore;
 
-    public static String EOL = System.lineSeparator();
-	protected Filling[] symbols;
-    protected int numberOfUsedSymbols;
-    protected int seed;
-    protected int bootleSize;
-    protected int score;
+    // Constructor without initial score
+    public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bottleSize) {
+        this(symbols, numberOfUsedSymbols, seed, bottleSize, 0);
+    }
 
-	/**
-	 * uncertain ???????
-	 * @param symbols
-	 * @param numberOfUsedSymbols
-	 * @param seed
-	 * @param bootleSize
-	 */
-	public AbstractFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize) {
-		this.symbols = symbols;
-		this.numberOfUsedSymbols = numberOfUsedSymbols;
-		this.seed = seed;
-		this.bootleSize = bootleSize;
-		this.score = 0;
-		Table table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
-		return table;
-	}
+    // Constructor with initial score
+    public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bottleSize, int initialScore) {
+        super(symbols, numberOfUsedSymbols, seed, bottleSize);
+        this.initialScore = initialScore;
+        this.userScore = initialScore; // Initialize the user's score with the initial score
+    }
 
-    protected abstract Bottle getNewBottle(){
-		return addBootle(Bottle);
-	};
+    @Override
+    protected Bottle getNewBottle() {
+        // Implement the logic to generate a new bottle for this specific game
+        // For example:
+        Filling[] newBottleContents = new Filling[table.getSizeBottles()];
+        // Populate newBottleContents with desired logic
+        return new Bottle(newBottleContents);
+    }
 
-	public abstract void updateScore(){
-		return updatedScore;
-	};
-	
+    @Override
+    public void updateScore() {
+        // Implement the logic to update the user's score for this specific game
+        // For example:
+        userScore += 10; // Update the score by 10 points after each play
+    }
 
-	public abstract int score(){
-		return score;
-	};
+    // Implement other abstract methods or add additional methods as needed
 }
+
 

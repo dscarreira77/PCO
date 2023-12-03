@@ -5,7 +5,8 @@ import types.Table;
 public class FinalScoringFillingGame extends AbstractFillingGame {
 
 	public FinalScoringFillingGame(Table table) {
-        this.table = table;
+		this.table = table;
+		this.score = 0;
     }
 
     public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize) {
