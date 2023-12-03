@@ -26,8 +26,14 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 */
 	@Override
 	public void provideHelp() {
-
-	}
+		if (currentPlays < maxPlays) {
+            currentPlays++;
+            addBootle(new Cup()); // Assuming addBootle() adds a Cup to the game
+        } else {
+            // Maximum number of plays reached
+        }
+    }
+	
 
 
 	
@@ -37,7 +43,7 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 */
 	@Override
 	public int score() {
-		return 0;
+		return this.score;
 	}
 
 	/**
@@ -45,8 +51,7 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 */
 	@Override
 	public boolean isRoundFinished() {
-		return false;
-
+		return currentPlays >= maxPlays || super.isRoundFinished();
 	}
 
 
@@ -65,7 +70,7 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 */
 	@Override
 	public Bottle getNewBootle() {
-		return null;
+		return new Cup();
 	}
 
 	/**
@@ -74,8 +79,13 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 */
 	@Override
 	public void updateScore() {
-
-	}
+		if (isRoundFinished() && currentPlays <= maxPlays) {
+            score += 2 * bet;
+        } else {
+            score -= bet;
+        }
+        return score;
+    }
 
 
 
