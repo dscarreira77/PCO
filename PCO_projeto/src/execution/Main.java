@@ -5,7 +5,9 @@ import java.util.Random;
 import types.Filling;
 import types.FinalScoringFillingGame;
 import types.Animals;
+import types.Balls;
 import types.BettingFillingGame;
+import types.Emojis;
 
 public class Main {
     public static void main(String[] args) {
@@ -89,7 +91,7 @@ public class Main {
 				int mode = scanner.nextInt();
 				if (mode == 1) {
 					FinalScoringFillingGame game;
-					Filling[] symbols = Animals.values();
+					Filling[] symbols = Emojis.values();
 					int numberOfUsedSymbols = 3;
 					System.out.println("Choose a seed.");
 					int seedUser = scanner.nextInt();
@@ -111,7 +113,7 @@ public class Main {
 				}
 				else if (mode == 2) {
 					BettingFillingGame game;
-					Filling[] symbols = Animals.values();
+					Filling[] symbols = Emojis.values();
 					int numberOfUsedSymbols = 3;
 					System.out.println("Choose a seed.");
 					int seedUser = scanner.nextInt();
@@ -148,7 +150,7 @@ public class Main {
 				int mode = scanner.nextInt();
 				if (mode == 1) {
 					FinalScoringFillingGame game;
-					Filling[] symbols = Animals.values();
+					Filling[] symbols = Balls.values();
 					int numberOfUsedSymbols = 3;
 					System.out.println("Choose a seed.");
 					int seedUser = scanner.nextInt();
@@ -170,7 +172,7 @@ public class Main {
 				}
 				else if (mode == 2) {
 					BettingFillingGame game;
-					Filling[] symbols = Animals.values();
+					Filling[] symbols = Balls.values();
 					int numberOfUsedSymbols = 3;
 					System.out.println("Choose a seed.");
 					int seedUser = scanner.nextInt();
