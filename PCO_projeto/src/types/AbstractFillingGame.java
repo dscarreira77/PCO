@@ -1,39 +1,27 @@
 package types;
-import types.Table;
-import java.util.Random;
 
-public class FinalScoringFillingGame extends AbstractFillingGame {
-    private int initialScore;
 
-    // Constructor without initial score
-    public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bottleSize) {
-        this(symbols, numberOfUsedSymbols, seed, bottleSize, 0);
+public abstract class AbstractFillingGame implements FillingGame {
+
+    public static String EOL = System.lineSeparator();
+    protected Filling[] symbols;
+    protected int numberOfUsedSymbols;
+    protected int seed;
+    protected int bootleSize;
+    protected int score;
+
+    public AbstractFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize) {
+        this.symbols = symbols;
+        this.numberOfUsedSymbols = numberOfUsedSymbols;
+        this.seed = seed;
+        this.bootleSize = bootleSize;
+        this.score = 0;
+        
     }
 
-    // Constructor with initial score
-    public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bottleSize, int initialScore) {
-        super(symbols, numberOfUsedSymbols, seed, bottleSize);
-        this.initialScore = initialScore;
-        this.userScore = initialScore; // Initialize the user's score with the initial score
-    }
+    protected abstract Bottle getNewBottle();
 
-    @Override
-    protected Bottle getNewBottle() {
-        // Implement the logic to generate a new bottle for this specific game
-        // For example:
-        Filling[] newBottleContents = new Filling[table.getSizeBottles()];
-        // Populate newBottleContents with desired logic
-        return new Bottle(newBottleContents);
-    }
+    public abstract void updateScore();
 
-    @Override
-    public void updateScore() {
-        // Implement the logic to update the user's score for this specific game
-        // For example:
-        userScore += 10; // Update the score by 10 points after each play
-    }
-
-    // Implement other abstract methods or add additional methods as needed
+    public abstract int score();
 }
-
-

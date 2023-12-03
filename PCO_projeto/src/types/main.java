@@ -4,7 +4,7 @@ public class main {
     
 
 	public String EOL = Table.EOL;
-    public static void main(String[] args) {
+    public static void Main(String[] args) {
 		Filling[] symbols = Emojis.values();
 		int numberOfUsedSymbols = 7;
 		int seed =1;

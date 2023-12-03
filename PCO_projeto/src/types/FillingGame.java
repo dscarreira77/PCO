@@ -1,5 +1,4 @@
 package types;
-import types.Table;
 
 public interface FillingGame {
 

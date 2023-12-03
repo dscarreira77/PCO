@@ -1,9 +1,10 @@
 package types;
-import types.Table;
 
 //Notem que podem faltar métodos na classe que permitam lidar melhor com os objectos.
 public class BettingFillingGame extends AbstractFillingGame{
 	private Table table;
+	private int bet;
+	private int maxPlays;
 
 
 	/**
@@ -16,8 +17,7 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 * @param bet
 	 * @param maxPlays
 	 */
-	public BettingFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, 
-			int bootleSize, int score, int bet, int maxPlays) {
+	public BettingFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize, int score, int bet, int maxPlays) {
 		super(symbols, numberOfUsedSymbols, seed, bootleSize);
 		this.score = score;
 		this.bet = bet;
@@ -34,7 +34,7 @@ public class BettingFillingGame extends AbstractFillingGame{
 	public void provideHelp() {
 		if ( table.nrMoves < maxPlays) {
             maxPlays--;
-            addBootle(getNewBootle()); 
+            table.addBootle(getNewBottle()); 
         } else {
             System.out.println("Can't provide Help. No more plays left.");
         }
@@ -61,7 +61,6 @@ public class BettingFillingGame extends AbstractFillingGame{
         } else {
             score = bet;
         }
-		return score;
     }
 
 	/**
@@ -69,7 +68,7 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 */
 	@Override
 	public boolean isRoundFinished() {
-		return areAllFilled() || table.nrMoves >= maxPlays;
+		return table.areAllFilled() || table.nrMoves >= maxPlays;
 	}
 
 	@Override
@@ -78,7 +77,7 @@ public class BettingFillingGame extends AbstractFillingGame{
 		sb.append("Game Status:");
 		sb.append("\nCurrent Score: ").append(score);
 		sb.append("\nMaximum Plays Allowed: ").append(maxPlays);
-		sb.append("\nNumber of Moves: ").append(nrMoves);
+		sb.append("\nNumber of Moves: ").append(table.nrMoves);
 		sb.append("\nRounds Finished: ").append(isRoundFinished() ? "Yes" : "No");
 		
 		return sb.toString();
@@ -90,9 +89,52 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 * @return
 	 */
 	@Override
-	public Bottle getNewBootle() {
+	public Bottle getNewBottle() {
 		return new Cup();
 	}
 
 
+	@Override
+	public void play(int x, int y) {
+		if(table.singleFilling(x) && !table.isEmpty(x)){
+			if(!table.isFull(y) || table.top(x).equals(table.top(y))){
+				table.pourFromTo(x, y);
+			}
+		}
+	}
+
+
+	@Override
+	public void startNewRound() {
+		//por fazer
+		this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
+		this.score = 0;
+
+	}
+
+
+	@Override
+	public Filling top(int x) {
+		return table.top(x);
+	}
+
+
+	@Override
+	public boolean singleFilling(int x) {
+		if(table.singleFilling(x)){
+			return true;
+		}
+		return false;
+	}
+
+
+	@Override
+	public boolean areAllFilled(int x) {
+		if(table.areAllFilled()){
+			return true;
+		}
+		return false;
+	}
+
+	
 }
