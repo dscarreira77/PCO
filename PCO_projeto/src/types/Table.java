@@ -159,9 +159,10 @@ public class Table {
                 Filling targetFilling = targetBottle.top();
                 if(!pouredFilling.equals(targetFilling)){
                     return;
-                    nrMoves++;
                 }
             }
+            
+            this.nrMoves++;
             sourceBottle.pourOut(1);
             targetBottle.receive(pouredFilling);
         }
