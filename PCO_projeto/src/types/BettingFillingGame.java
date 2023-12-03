@@ -121,19 +121,13 @@ public class BettingFillingGame extends AbstractFillingGame{
 
 	@Override
 	public boolean singleFilling(int x) {
-		if(table.singleFilling(x)){
-			return true;
-		}
-		return false;
+		return table.singleFilling(x);
 	}
 
 
 	@Override
 	public boolean areAllFilled(int x) {
-		if(table.areAllFilled()){
-			return true;
-		}
-		return false;
+		return table.areAllFilled();
 	}
 
 	

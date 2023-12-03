@@ -1,29 +1,25 @@
 package types;
-import types.Table;
 
 //Notem que podem faltar métodos na classe que permitam lidar melhor com os objectos.
 public class FinalScoringFillingGame extends AbstractFillingGame {
-
-	public FinalScoringFillingGame(Table table) {
-		this.table = table;
-		this.score = 0;
-    }
+    private Table table;
 
     public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize) {
         super(symbols, numberOfUsedSymbols, seed, bootleSize);
-        this.score = 0; 
+        this.score = 0;
+        this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
     }
 
     public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize, int score) {
         super(symbols, numberOfUsedSymbols, seed, bootleSize);
         this.score = score; 
+        this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
     }
 
     @Override
     public void updateScore() {
-        // Your implementation based on the game rules
-        if (areAllFilled()) {
-            int moves = table.nrMoves; //pesquisar chamada de vairavel definida em table
+        if (table.areAllFilled()) {
+            int moves = table.nrMoves;
             if (moves < 10) {
                 this.score += 1000;
             } else if (moves >= 10 && moves <= 15) {
@@ -45,8 +41,53 @@ public class FinalScoringFillingGame extends AbstractFillingGame {
 
     @Override
     public String toString() {
-        // Your implementation for describing the game state
-        return "FinalScoringFillingGame state";
+        return table.toString();
+    }
+
+    @Override
+    public void play(int x, int y) {
+        if(table.singleFilling(x) && !table.isEmpty(x)){
+			if(!table.isFull(y) || table.top(x).equals(table.top(y))){
+				table.pourFromTo(x, y);
+			}
+		}
+    }
+
+    @Override
+    public boolean isRoundFinished() {
+        return table.areAllFilled();
+    }
+
+    @Override
+    public void startNewRound() {
+        //uncertain
+        this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
+		this.score = 0;
+    }
+
+    @Override
+    public void provideHelp() {
+        table.addBootle(getNewBottle());
+    }
+
+    @Override
+    public Filling top(int x) {
+        return table.top(x);
+    }
+
+    @Override
+    public boolean singleFilling(int x) {
+        return table.singleFilling(x);
+    }
+
+    @Override
+    public boolean areAllFilled(int x) {
+        return table.areAllFilled();
+    }
+
+    @Override
+    protected Bottle getNewBottle() {
+        return new Bottle();
     }
 
 }
