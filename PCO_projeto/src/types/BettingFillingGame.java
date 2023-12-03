@@ -5,7 +5,6 @@ public class BettingFillingGame extends AbstractFillingGame{
 	private Table table;
 	private int bet;
 	private int maxPlays;
-
 	/**
 	 * 
 	 * @param symbols
@@ -54,34 +53,42 @@ public class BettingFillingGame extends AbstractFillingGame{
 	 */
 	@Override
 	public void updateScore() {
-		if (isRoundFinished() && table.nrMoves <= maxPlays) {
-            score += 2 * bet;
-        } else {
-            score = bet;
-        }
-    }
+		if (isRoundFinished() && table.nrMoves < maxPlays) {
+				this.score += 2 * bet;
+			}else{
+				this.score = bet;
+			}
+		}
 
 	/**
 	 * 
 	 */
 	@Override
 	public boolean isRoundFinished() {
-		if (table.areAllFilled() || table.nrMoves >= maxPlays){
+		if (table.areAllFilled() || maxPlays <= table.nrMoves){
 			return true;
 		}
 		return false;
 	}
 
 	@Override
-	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append("Score: ").append(score);
-		sb.append(EOL);
-		sb.append(this.table.toString());
-		sb.append("Status: ").append(table.nrMoves).append(" moves have been used until now. You still have ").append(maxPlays-table.nrMoves).append(" moves left.").append(EOL);
-		
-		return sb.toString();
-	}
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        if(isRoundFinished()){
+            sb.append("Score: ").append(score);
+            sb.append(EOL);
+            sb.append(this.table.toString());
+            sb.append("Status: This round is finihed.");
+            sb.append(EOL).append(table.nrMoves).append(" moves were used.").append(EOL);
+        }else{
+            sb.append("Score: ").append(score);
+            sb.append(EOL);
+            sb.append(this.table.toString());
+            sb.append("Status: ").append(table.nrMoves).append(" moves have been used until now. You still have ").append(maxPlays-table.nrMoves).append(" moves left.").append(EOL);
+        }
+        
+        return sb.toString();
+    }
 
 
 	/**
@@ -96,7 +103,7 @@ public class BettingFillingGame extends AbstractFillingGame{
 
 	@Override
 	public void play(int x, int y) {
-		
+		updateScore();
 		for(int i = 0; i < table.getSizeBottles();i++){
 			Filling topFillingx = table.top(x);
 			Filling topFillingy = table.top(y);
@@ -133,5 +140,12 @@ public class BettingFillingGame extends AbstractFillingGame{
 		return table.areAllFilled();
 	}
 
+	public int jogadas(){
+		return table.nrMoves;
+	}
 	
+	
+	public int numberOfPlaysLeft(){
+		return maxPlays - table.nrMoves;
+	}
 }
