@@ -106,10 +106,7 @@ public class BettingFillingGame extends AbstractFillingGame{
 
 	@Override
 	public void startNewRound() {
-		//por fazer
-		this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
-		this.score = 0;
-
+		table.regenerateTable();
 	}
 
 
