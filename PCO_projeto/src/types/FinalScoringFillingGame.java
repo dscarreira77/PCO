@@ -20,7 +20,11 @@ public class FinalScoringFillingGame extends AbstractFillingGame {
 	 */
 	@Override
 	public void provideHelp() {
-		System.out.println("Can't provide Help. No more plays left.");
+		if (isRoundFinished()) {
+			System.out.println("Can't provide Help. No more plays left.");
+		} else {
+			table.addBootle(getNewBottle());
+		}
 	}
 
 	/**
@@ -41,16 +45,12 @@ public class FinalScoringFillingGame extends AbstractFillingGame {
 			int numberOfMoves = table.nrMoves;
 
 			if (numberOfMoves < 10) {
-				// Player resolved the puzzle in fewer than 10 moves
 				score += 1000;
 			} else if (numberOfMoves >= 10 && numberOfMoves <= 15) {
-				// Player resolved the puzzle in 10 to 15 moves
 				score += 500;
 			} else if (numberOfMoves > 15 && numberOfMoves <= 25) {
-				// Player resolved the puzzle in 15 to 25 moves
 				score += 200;
 			} else {
-				// Player couldn't resolve the puzzle within the specified moves
 				score += 0;
 			}
 		}
@@ -86,7 +86,7 @@ public class FinalScoringFillingGame extends AbstractFillingGame {
 
 	@Override
 	public Bottle getNewBottle() {
-		return new Cup();
+		return new Bottle();
 	}
 
 	@Override

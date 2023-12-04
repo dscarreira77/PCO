@@ -105,7 +105,7 @@ public class BettingFillingGame extends AbstractFillingGame {
 
 	@Override
 	public void play(int x, int y) {
-
+		updateScore();
 		for (int i = 0; i < table.getSizeBottles(); i++) {
 			Filling topFillingx = table.top(x);
 			Filling topFillingy = table.top(y);
