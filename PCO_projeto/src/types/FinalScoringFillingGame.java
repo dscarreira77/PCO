@@ -1,30 +1,27 @@
 package types;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
 public class FinalScoringFillingGame extends AbstractFillingGame {
-    private Table table;
+	private Table table;
 
-    public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize) {
-        super(symbols, numberOfUsedSymbols, seed, bootleSize);
-        this.score = 0;
-        this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
-    }
-
-	public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize, int score){
+	public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize) {
 		super(symbols, numberOfUsedSymbols, seed, bootleSize);
-        this.score = score;
-        this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
+		this.score = 0;
+		this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
 	}
+
+	public FinalScoringFillingGame(Filling[] symbols, int numberOfUsedSymbols, int seed, int bootleSize, int score) {
+		super(symbols, numberOfUsedSymbols, seed, bootleSize);
+		this.score = score;
+		this.table = new Table(symbols, numberOfUsedSymbols, seed, bootleSize);
+	}
+
 	/**
 	 * 
 	 */
 	@Override
 	public void provideHelp() {
-			System.out.println("Can't provide Help. No more plays left.");
-    }
-	
+		System.out.println("Can't provide Help. No more plays left.");
+	}
 
 	/**
 	 * 
@@ -33,7 +30,6 @@ public class FinalScoringFillingGame extends AbstractFillingGame {
 	public int score() {
 		return score;
 	}
-
 
 	/**
 	 * 
@@ -60,7 +56,6 @@ public class FinalScoringFillingGame extends AbstractFillingGame {
 		}
 	}
 
-
 	/**
 	 * 
 	 */
@@ -70,70 +65,66 @@ public class FinalScoringFillingGame extends AbstractFillingGame {
 	}
 
 	@Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        if(isRoundFinished()){
-            sb.append("Score: ").append(score);
-            sb.append(EOL);
-            sb.append(this.table.toString());
-            sb.append("Status: This round is finihed.");
-            sb.append(EOL).append(table.nrMoves).append(" moves were used.").append(EOL);
-        }else{
-            sb.append("Score: ").append(score);
-            sb.append(EOL);
-            sb.append(this.table.toString());
-            sb.append("Status: The round is not finished.").append(EOL).append(table.nrMoves).append(" moves have been used until now.").append(EOL);
-        }
-        
-        return sb.toString();
-    }
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		if (isRoundFinished()) {
+			sb.append("Score: ").append(score);
+			sb.append(EOL);
+			sb.append(this.table.toString());
+			sb.append("Status: This round is finihed.");
+			sb.append(EOL).append(table.nrMoves).append(" moves were used.").append(EOL);
+		} else {
+			sb.append("Score: ").append(score);
+			sb.append(EOL);
+			sb.append(this.table.toString());
+			sb.append("Status: The round is not finished.").append(EOL).append(table.nrMoves)
+					.append(" moves have been used until now.").append(EOL);
+		}
+
+		return sb.toString();
+	}
 
 	@Override
 	public Bottle getNewBottle() {
 		return new Cup();
 	}
 
-
 	@Override
 	public void play(int x, int y) {
 		updateScore();
-		for(int i = 0; i < table.getSizeBottles();i++){
+		for (int i = 0; i < table.getSizeBottles(); i++) {
 			Filling topFillingx = table.top(x);
 			Filling topFillingy = table.top(y);
-			if((topFillingx == topFillingy && !table.isFull(y)) || table.isEmpty(y)){
+			if ((topFillingx == topFillingy && !table.isFull(y)) || table.isEmpty(y)) {
 				table.pourFromTo(x, y);
-			}else{
+			} else {
 				i = table.getSizeBottles();
 			}
 		}
 		table.nrMoves++;
 	}
 
-
 	@Override
 	public void startNewRound() {
 		table.regenerateTable();
 	}
-
 
 	@Override
 	public Filling top(int x) {
 		return table.top(x);
 	}
 
-
 	@Override
 	public boolean singleFilling(int x) {
 		return table.singleFilling(x);
 	}
-
 
 	@Override
 	public boolean areAllFilled(int x) {
 		return table.areAllFilled();
 	}
 
-	public int jogadas(){
+	public int jogadas() {
 		return table.nrMoves;
 	}
 }
